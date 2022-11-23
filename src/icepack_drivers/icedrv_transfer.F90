@@ -82,9 +82,11 @@
 
           wind(:)   = sqrt(uatm(:)**2 + vatm(:)**2)
 
-          zlvl_t    = ncar_bulk_z_tair
-          zlvl_q    = ncar_bulk_z_shum
-          zlvl_v    = ncar_bulk_z_wind
+          !zlvl_t    = ncar_bulk_z_tair
+          !zlvl_q    = ncar_bulk_z_shum
+          !zlvl_v    = ncar_bulk_z_wind
+          zlvl    = ncar_bulk_z_wind           ! Momentum
+          zlvs    = ncar_bulk_z_tair           ! Scalars
 
           if ( l_mslp ) then
              potT(:) = T_air(:)*(press_air(:)/100000.0_dbl_kind)**ex             

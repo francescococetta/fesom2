@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManager.cpp
+ThreadsManager.h
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManager.h
+stdexcept
+-
+string
+-
+map
+-
+memory
+-
+thread
+-
+sstream
+-
+
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManager.h
+string
+-
+map
+-
+memory
+-
+thread
+-
+
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManagerFC.cpp
+ThreadsManagerFC.h
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManagerFC.h
+ThreadsManager.h
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManager.h
+
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManagerFC.h
+ThreadsManagerFCMacros.h
+/work/oda/fc09621/FESOM/fesom2/src/async_threads_cpp/ThreadsManagerFCMacros.h
+
+src/async_threads_cpp/ThreadsManagerFCMacros.h
+

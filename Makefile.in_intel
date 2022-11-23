@@ -11,7 +11,7 @@ LD = $(MPIFC)
 OPT  = -O3 -r8 -fp-model precise -xHost -ip -implicitnone -static-intel
 COPT = -O3 -xHost -DLINUX -DUNDER_ -DMPI2 -Iinclude
 ## Options for debugging:
-# OPT = -g -xHost -traceback -fpe:0 -check all -static-intel
+#OPT = -g -xHost -traceback -fpe:0 -check all -static-intel 
 
 # Preprocessor flags for FESOM2
 CPP_DEFS = -DDISABLE_MULTITHREADING

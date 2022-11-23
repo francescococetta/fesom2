@@ -856,7 +856,7 @@
                nfsd_in=nfsd, n_aero_in=n_aero)
           call icepack_init_tracer_flags(tr_iage_in=tr_iage, &
                tr_FY_in=tr_FY, tr_lvl_in=tr_lvl, tr_aero_in=tr_aero, &
-               tr_pond_in=tr_pond, tr_pond_cesm_in=tr_pond_cesm, &
+               tr_pond_in=tr_pond, &
                tr_pond_lvl_in=tr_pond_lvl, &
                tr_pond_topo_in=tr_pond_topo, tr_fsd_in=tr_fsd)
           call icepack_init_tracer_indices(nt_Tsfc_in=nt_Tsfc, &

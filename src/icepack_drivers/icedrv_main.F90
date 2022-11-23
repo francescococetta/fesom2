@@ -50,6 +50,7 @@
           integer (kind=int_kind), save  :: nilyr                ! number of ice layers per category in use
           integer (kind=int_kind), save  :: nslyr                ! number of snow layers per category in use
           integer (kind=int_kind), save  :: n_aero               ! number of aerosols in use
+          integer (kind=int_kind), save  :: n_iso                ! number of isotopes in use
           integer (kind=int_kind), save  :: n_zaero              ! number of z aerosols in use
           integer (kind=int_kind), save  :: n_algae              ! number of algae in use
           integer (kind=int_kind), save  :: n_doc                ! number of DOC pools in use
@@ -167,9 +168,11 @@
            ! in from atmosphere (if calc_Tsfc)
 
           real (kind=dbl_kind), save :: & 
-             zlvl_t     , &  ! atm level height for temperature (m)
-             zlvl_q     , &  ! atm level height for humidity    (m)
-             zlvl_v          ! atm level height for wind        (m)
+             !zlvl_t     , &  ! atm level height for temperature (m)
+             !zlvl_q     , &  ! atm level height for humidity    (m)
+             !zlvl_v     , &  ! atm level height for wind        (m)
+             zlvl       , &  ! atm level height for momentum and scalars if zlvs not present
+             zlvs            ! atm level height for scalars
 
           real (kind=dbl_kind), allocatable, save :: & ! DIM nx
              uatm(:)    , &  ! wind velocity components (m/s)
@@ -376,7 +379,8 @@
     
           real (kind=dbl_kind), &
              allocatable, save :: & ! DIM nx,icepack_max_aero
-             faero_ocn(:,:)   ! aerosol flux to ocean  (kg/m^2/s)
+             faero_ocn(:,:), &      ! aerosol flux to ocean  (kg/m^2/s)
+             fiso_ocn(:,:)          ! isotope flux to ocean  (kg/m^2/s)
     
           ! out to ocean
       

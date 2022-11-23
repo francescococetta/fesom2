@@ -98,18 +98,25 @@ submodule (icedrv_main) icedrv_step
     
           integer (kind=int_kind) :: &
              ntrcr, nt_apnd, nt_hpnd, nt_ipnd, nt_alvl, nt_vlvl, nt_Tsfc, &
-             nt_iage, nt_FY, nt_qice, nt_sice, nt_aero, nt_qsno
+             nt_iage, nt_FY, nt_qice, nt_sice, nt_qsno, &
+             nt_aero, nt_isosno, nt_isoice, nt_rsnw, nt_smice, nt_smliq
     
           logical (kind=log_kind) :: &
              tr_iage, tr_FY, tr_aero, tr_pond, tr_pond_cesm, &
-             tr_pond_lvl, tr_pond_topo, calc_Tsfc
+             tr_pond_lvl, tr_pond_topo, calc_Tsfc, tr_iso, tr_snow
     
           real (kind=dbl_kind), dimension(n_aero,2,ncat) :: &
              aerosno,  aeroice    ! kg/m^2
-    
+          
+          !real (kind=dbl_kind), dimension(n_iso,ncat) :: &
+          !   isosno,  isoice    ! kg/m^2
+          !
+          !real (kind=dbl_kind), dimension(nslyr,ncat) :: &
+          !   rsnwn, smicen, smliqn
+          
           real (kind=dbl_kind) :: &
              puny
-    
+          
           character(len=*), parameter :: subname='(step_therm1)'
     
           !-----------------------------------------------------------------
@@ -130,7 +137,7 @@ submodule (icedrv_main) icedrv_step
     
           call icepack_query_tracer_flags( &
                tr_iage_out=tr_iage, tr_FY_out=tr_FY, &
-               tr_aero_out=tr_aero, tr_pond_out=tr_pond, tr_pond_cesm_out=tr_pond_cesm, &
+               tr_aero_out=tr_aero, tr_pond_out=tr_pond, &
                tr_pond_lvl_out=tr_pond_lvl, tr_pond_topo_out=tr_pond_topo)
           call icepack_warnings_flush(ice_stderr)
           if (icepack_warnings_aborted()) call icedrv_system_abort(string=subname, &
@@ -151,6 +158,11 @@ submodule (icedrv_main) icedrv_step
           prescribed_ice = .false.
           aerosno(:,:,:) = c0
           aeroice(:,:,:) = c0
+          !isosno (:,:)   = c0
+          !isoice (:,:)   = c0
+          !rsnwn  (:,:)   = c0
+          !smicen (:,:)   = c0
+          !smliqn (:,:)   = c0
     
           do i = 1, nx
     
@@ -184,7 +196,33 @@ submodule (icedrv_main) icedrv_step
                 enddo
               enddo
             endif ! tr_aero
-    
+            
+           ! if (tr_iso) then
+           !   ! trcrn(nt_isosno/ice) has units kg/m^3
+           !   do n = 1, ncat
+           !     do k = 1, n_iso
+           !       isosno(k,n) = trcrn(i,nt_isosno+k-1,n) * vsnon_init(i,n)
+           !       isoice(k,n) = trcrn(i,nt_isoice+k-1,n) * vicen_init(i,n)
+           !     enddo
+           !   enddo
+           ! endif ! tr_iso
+           !
+           ! if (tr_snow) then
+           !   do n = 1, ncat
+           !     do k = 1, nslyr
+           !       rsnwn (k,n) = trcrn(i,nt_rsnw +k-1,n)
+           !       smicen(k,n) = trcrn(i,nt_smice+k-1,n)
+           !       smliqn(k,n) = trcrn(i,nt_smliq+k-1,n)
+           !     enddo
+           !   enddo
+           ! endif ! tr_snow
+           ! print*, 'test: ', aerosno(:,:,:), aeroice(:,:,:), & 
+           !                  faero_atm(i,1:n_aero), faero_ocn(i,1:n_aero)
+            aerosno(:,:,:) = 0.
+            aeroice(:,:,:) = 0.
+            faero_atm(i,1:n_aero) = 0.
+            faero_ocn(i,1:n_aero) = 0.
+            
             call icepack_step_therm1(dt=dt, ncat=ncat, nilyr=nilyr, nslyr=nslyr, &
                 aicen_init = aicen_init(i,:), &
                 vicen_init = vicen_init(i,:), &
@@ -207,10 +245,7 @@ submodule (icedrv_main) icedrv_step
                 aerosno = aerosno(:,:,:),        &
                 aeroice = aeroice(:,:,:),        &
                 uatm = uatm(i), vatm = vatm(i),  &
-                wind = wind(i),                  &
-                zlvl_v = zlvl_v,                 &
-                zlvl_q = zlvl_q,                 &
-                zlvl_t = zlvl_t,                 &
+                wind = wind(i), zlvl = zlvl,     &
                 Qa   = Qa(i),   rhoa = rhoa(i),  &
                 Tair = T_air(i), Tref = Tref(i), &
                 Qref = Qref(i), Uref = Uref(i),  &
@@ -280,6 +315,27 @@ submodule (icedrv_main) icedrv_step
                 enddo
               enddo
             endif ! tr_aero
+            
+           ! if (tr_iso) then
+           !   do n = 1, ncat
+           !     if (vicen(i,n) > puny) isoice(:,n) = isoice(:,n)/vicen(i,n)
+           !     if (vsnon(i,n) > puny) isosno(:,n) = isosno(:,n)/vsnon(i,n)
+           !     do k = 1, n_iso
+           !       trcrn(i,nt_isosno+k-1,n) = isosno(k,n)
+           !       trcrn(i,nt_isoice+k-1,n) = isoice(k,n)
+           !     enddo
+           !   enddo
+           ! endif ! tr_iso
+           !
+           ! if (tr_snow) then
+           !   do n = 1, ncat
+           !     do k = 1, nslyr
+           !       trcrn(i,nt_rsnw +k-1,n) = rsnwn (k,n)
+           !       trcrn(i,nt_smice+k-1,n) = smicen(k,n)
+           !       trcrn(i,nt_smliq+k-1,n) = smliqn(k,n)
+           !     enddo
+           !   enddo
+           ! endif ! tr_snow
             
           enddo ! i
           call icepack_warnings_flush(ice_stderr)
@@ -817,9 +873,7 @@ submodule (icedrv_main) icedrv_step
                                        uatm    = uatm(i),        &   
                                        vatm    = vatm(i),        &   
                                        wind    = wind(i),        &   
-                                       zlvl_t  = zlvl_t,         &   
-                                       zlvl_q  = zlvl_q,         &   
-                                       zlvl_v  = zlvl_v,         &   
+                                       zlvl    = zlvl,           &   
                                        Qa      = Qa(i),          &     
                                        rhoa    = rhoa(i),        &
                                        strx    = strairx_ocn(i), & 
@@ -1238,18 +1292,19 @@ submodule (icedrv_main) icedrv_step
 
              t2 = MPI_Wtime()
 
-             select case (whichEVP)
-                case (0)
-                   call EVPdynamics(mesh)
-                case (1)
-                   call EVPdynamics_m(mesh)
-                case (2)
-                   call EVPdynamics_a(mesh)
-                case default
-                   if (mype==0) write(*,*) 'A non existing EVP scheme specified!'
-                   call par_ex
-                   stop
-             end select
+             ! FC deleted
+             !select case (whichEVP)
+             !   case (0)
+             !      call EVPdynamics(mesh)
+             !   case (1)
+             !      call EVPdynamics_m(mesh)
+             !   case (2)
+             !      call EVPdynamics_a(mesh)
+             !   case default
+             !      if (mype==0) write(*,*) 'A non existing EVP scheme specified!'
+             !      call par_ex
+             !      stop
+             !end select
 
              t3 = MPI_Wtime()
              time_evp = t3 - t2
@@ -1266,7 +1321,8 @@ submodule (icedrv_main) icedrv_step
 
              t2 = MPI_Wtime()
 
-             call tracer_advection_icepack(mesh)
+             ! FC deleted
+             !call tracer_advection_icepack(mesh)
 
              t3 = MPI_Wtime()
              time_advec = t3 - t2

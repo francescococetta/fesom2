@@ -58,11 +58,11 @@
           ! query Icepack values
           !-----------------------------------------------------------------
     
-          call icepack_query_parameters(heat_capacity_out=heat_capacity)
+          call icepack_query_parameters()
           call icepack_query_tracer_sizes(ntrcr_out=ntrcr)
           call icepack_query_tracer_flags(tr_iage_out=tr_iage,                 &
                tr_FY_out=tr_FY, tr_lvl_out=tr_lvl, tr_aero_out=tr_aero,        &
-               tr_pond_cesm_out=tr_pond_cesm, tr_pond_lvl_out=tr_pond_lvl,     &
+               tr_pond_lvl_out=tr_pond_lvl,     &
                tr_pond_topo_out=tr_pond_topo, tr_fsd_out=tr_fsd)
           call icepack_query_tracer_indices(nt_Tsfc_out=nt_Tsfc,               &
                nt_sice_out=nt_sice, nt_qice_out=nt_qice,                       &
@@ -88,26 +88,6 @@
              write (nu_diag,*) 'Must have at least one snow layer'
              call icedrv_system_abort(file=__FILE__,line=__LINE__)
           endif
-    
-          if (.not.heat_capacity) then
-    
-             !write (nu_diag,*) 'WARNING - Zero-layer thermodynamics'
-    
-             if (nilyr > 1) then
-                write (nu_diag,*) 'nilyr =', nilyr
-                write (nu_diag,*)        &
-                     'Must have nilyr = 1 if ktherm = 0'
-                call icedrv_system_abort(file=__FILE__,line=__LINE__)
-             endif
-    
-             if (nslyr > 1) then
-                write (nu_diag,*) 'nslyr =', nslyr
-                write (nu_diag,*)        &
-                     'Must have nslyr = 1 if heat_capacity = F'
-                call icedrv_system_abort(file=__FILE__,line=__LINE__)
-             endif
-    
-          endif   ! heat_capacity = F
     
           !-----------------------------------------------------------------
           ! Set tracer types
@@ -244,9 +224,10 @@
           !-----------------------------------------------------------------
           ! fluxes received from atmosphere
           !-----------------------------------------------------------------
-          zlvl_t    = c10                ! atm level height for temperature (m)
-          zlvl_q    = c10                ! atm level height for humidity    (m)
-          zlvl_v    = c10                ! atm level height for wind        (m)
+          !zlvl_t    = c10                ! atm level height for temperature (m)
+          !zlvl_q    = c10                ! atm level height for humidity    (m)
+          !zlvl_v    = c10                ! atm level height for wind        (m)
+          zlvl    = c10 
         
           rhoa  (:) = 1.3_dbl_kind       ! air density (kg/m^3)
           uatm  (:) = c5                 ! wind velocity    (m/s)

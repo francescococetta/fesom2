@@ -14,7 +14,7 @@
       use icepack_intfc,    only: icepack_max_aero, icepack_max_nbtrcr, &
           icepack_max_algae, icepack_max_doc, icepack_max_don, icepack_max_dic, icepack_max_fe, &
           icepack_query_tracer_indices, icepack_query_tracer_flags, icepack_query_parameters,   &
-          icepack_query_tracer_sizes
+          icepack_query_tracer_sizes, icepack_max_iso
       use icedrv_system,    only: icedrv_system_abort
 
       contains
@@ -272,6 +272,7 @@
          faero_atm(nx,icepack_max_aero)       , &
          flux_bio_atm(nx,icepack_max_nbtrcr)  , & ! all bio fluxes to ice from atmosphere
          faero_ocn(nx,icepack_max_aero)       , & ! aerosol flux to ocean  (kg/m^2/s)
+         fiso_ocn(nx,icepack_max_iso)         , & ! isotope flux to ocean  (kg/m^2/s)
          flux_bio(nx,icepack_max_nbtrcr)      , & ! all bio fluxes to ocean
          flux_bio_ai(nx,icepack_max_nbtrcr)   , & ! all bio fluxes to ocean, averaged over grid cell
          fzsal_ai(nx)          , & ! salt flux to ocean from zsalinity (kg/m^2/s)

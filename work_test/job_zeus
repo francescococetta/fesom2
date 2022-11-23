@@ -1,0 +1,30 @@
+#!/bin/bash
+#BSUB -q p_medium
+#BSUB -J fesom2
+#BSUB -n 288
+#BSUB -o logs/logfesom2.%J.out
+#BSUB -e logs/logfesom2.%J.err
+#BSUB -P R000
+##BSUB -u francesco.cocetta@cmcc.it
+##BSUB -x
+
+module purge
+module purge
+
+module load intel20.1/20.1.217 impi20.1/19.7.217 impi20.1/netcdf/C_4.7.4-F_4.5.3_CXX_4.3.1 impi20.1/hdf5/1.12.0 cmake/3.17.3 intel20.1/szip/2.1.1 gcc_9.1.0/9.1.0 gcc_9.1.0/OpenBLAS/0.3.9
+#module load intel19.5/19.5.281 impi19.5/19.5.281 impi19.5/netcdf-threadsafe/C_4.7.2-F_4.5.2_CXX_4.3.1 impi19.5/hdf5-threadsafe/1.10.5 cmake/3.17.3 intel19.5/szip/2.1.1 gcc_9.1.0/9.1.0
+
+#export FC=mpiifort CC=mpiicc CXX=mpiicpc
+
+ulimit -s unlimited
+
+ln -f ../bin/fesom.x    .           # cp -n ../bin/fesom.x
+#cp ../config/namelist.config         .
+#cp ../config/namelist.forcing_COREI  namelist.forcing
+#cp ../config/namelist.oce.core2      namelist.oce
+#cp ../config/namelist.ice            .
+#cp ../config/namelist.icepack        .
+#cp ../config/namelist.io             .
+
+#mpirun --allow-run-as-root --mca btl_vader_single_copy_mechanism none -n 3 ./fesom.x > fesom.out 2>&1
+mpirun -n 288 ./fesom.x > fesom.out 2>&1

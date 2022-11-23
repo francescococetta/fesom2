@@ -1,0 +1,5 @@
+/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/edit_cache.dir
+/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/FortranCInterface.dir
+/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/symbols.dir
+/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/rebuild_cache.dir
+/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/myfort.dir

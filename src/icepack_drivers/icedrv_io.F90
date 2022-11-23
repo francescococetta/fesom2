@@ -79,7 +79,7 @@
                skl_bgc_out=skl_bgc, z_tracers_out=z_tracers, ktherm_out=ktherm)
           call icepack_query_tracer_flags(                                            &
                tr_iage_out=tr_iage, tr_FY_out=tr_FY, tr_lvl_out=tr_lvl,               &
-               tr_aero_out=tr_aero, tr_pond_cesm_out=tr_pond_cesm,                    &
+               tr_aero_out=tr_aero,                    &
                tr_pond_topo_out=tr_pond_topo, tr_pond_lvl_out=tr_pond_lvl,            &
                tr_brine_out=tr_brine, tr_bgc_N_out=tr_bgc_N, tr_bgc_C_out=tr_bgc_C,   &
                tr_bgc_Nit_out=tr_bgc_Nit, tr_bgc_Sil_out=tr_bgc_Sil,                  &
@@ -326,7 +326,7 @@
              skl_bgc_out=skl_bgc, z_tracers_out=z_tracers, ktherm_out=ktherm)
         call icepack_query_tracer_flags(                                            &
              tr_iage_out=tr_iage, tr_FY_out=tr_FY, tr_lvl_out=tr_lvl,               &
-             tr_aero_out=tr_aero, tr_pond_cesm_out=tr_pond_cesm,                    &
+             tr_aero_out=tr_aero,                    &
              tr_pond_topo_out=tr_pond_topo, tr_pond_lvl_out=tr_pond_lvl,            &
              tr_brine_out=tr_brine, tr_bgc_N_out=tr_bgc_N, tr_bgc_C_out=tr_bgc_C,   &
              tr_bgc_Nit_out=tr_bgc_Nit, tr_bgc_Sil_out=tr_bgc_Sil,                  &

@@ -4,7 +4,7 @@
 
 DIR="./Icepack"
 if [ ! -d "$DIR" ]; then
-   git clone https://github.com/lzampier/Icepack.git
+   git clone https://github.com/CICE-Consortium/Icepack.git
    cd $DIR
    git checkout icepack_fesom2
 fi

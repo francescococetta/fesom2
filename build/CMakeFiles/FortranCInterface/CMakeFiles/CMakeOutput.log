@@ -1,0 +1,18 @@
+Performing C SOURCE FILE Test C_SUPPORTS_DOLLAR succeeded with the following output:
+Change Dir: /work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_c4f67/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c4f67.dir/build.make CMakeFiles/cmTC_c4f67.dir/build
+gmake[1]: Entering directory `/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c4f67.dir/src.c.o
+/zeus/opt/intel20/intel/compilers_and_libraries_2020.1.217/linux/mpi/intel64/bin/mpiicc   -I/zeus/opt/impi20.1/netcdf/C_4.7.4-F_4.5.3_CXX_4.3.1/include -I/zeus/opt/curl/7.70.0/include -I/zeus/opt/intel20.1/szip/2.1.1/include -I/zeus/opt/impi20.1/hdf5/1.12.0/include -I/usr/include -I/zeus/opt/impi20.1/parallel-netcdf/1.12.1/include -DC_SUPPORTS_DOLLAR   -o CMakeFiles/cmTC_c4f67.dir/src.c.o   -c /work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_c4f67
+/zeus/opt/cmake/3.17.3/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c4f67.dir/link.txt --verbose=1
+/zeus/opt/intel20/intel/compilers_and_libraries_2020.1.217/linux/mpi/intel64/bin/mpiicc -I/zeus/opt/impi20.1/netcdf/C_4.7.4-F_4.5.3_CXX_4.3.1/include -I/zeus/opt/curl/7.70.0/include -I/zeus/opt/intel20.1/szip/2.1.1/include -I/zeus/opt/impi20.1/hdf5/1.12.0/include -I/usr/include -I/zeus/opt/impi20.1/parallel-netcdf/1.12.1/include -DC_SUPPORTS_DOLLAR  -L/zeus/opt/impi20.1/netcdf/C_4.7.4-F_4.5.3_CXX_4.3.1/lib -lnetcdf -lnetcdff -lnetcdf_c++4  CMakeFiles/cmTC_c4f67.dir/src.c.o  -o cmTC_c4f67 
+gmake[1]: Leaving directory `/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/FortranCInterface/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+
+extern int dollar$(void);
+int main() { return 0; }
+

@@ -1,0 +1,26 @@
+Performing C SOURCE FILE Test BLAS_C_COMPILER_WRAPPER failed with the following output:
+Change Dir: /work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_e7d42/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_e7d42.dir/build.make CMakeFiles/cmTC_e7d42.dir/build
+gmake[1]: Entering directory `/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e7d42.dir/src.c.o
+/zeus/opt/intel20/intel/compilers_and_libraries_2020.1.217/linux/mpi/intel64/bin/mpiicc   -I/zeus/opt/impi20.1/netcdf/C_4.7.4-F_4.5.3_CXX_4.3.1/include -I/zeus/opt/curl/7.70.0/include -I/zeus/opt/intel20.1/szip/2.1.1/include -I/zeus/opt/impi20.1/hdf5/1.12.0/include -I/usr/include -I/zeus/opt/impi20.1/parallel-netcdf/1.12.1/include -DBLAS_C_COMPILER_WRAPPER -c   -o CMakeFiles/cmTC_e7d42.dir/src.c.o   -c /work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/CMakeTmp/src.c
+/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/CMakeTmp/src.c(1): catastrophic error: cannot open source file "cblas.h"
+  	#include <cblas.h>
+  	                  ^
+
+compilation aborted for /work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/CMakeTmp/src.c (code 4)
+gmake[1]: *** [CMakeFiles/cmTC_e7d42.dir/src.c.o] Error 4
+gmake[1]: Leaving directory `/work/oda/fc09621/FESOM/fesom2/build/CMakeFiles/CMakeTmp'
+gmake: *** [cmTC_e7d42/fast] Error 2
+
+
+Source file was:
+	#include <cblas.h>
+	typedef void (*foo)(const enum CBLAS_ORDER, const enum CBLAS_TRANSPOSE,
+		const enum CBLAS_TRANSPOSE, const int, const int,
+		const int, const float, const float *,
+		const int, const float *, const int,
+		const float, float *, const int);
+	foo func = &cblas_sgemm;
+
