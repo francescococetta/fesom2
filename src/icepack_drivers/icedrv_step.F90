@@ -218,10 +218,10 @@ submodule (icedrv_main) icedrv_step
            ! endif ! tr_snow
            ! print*, 'test: ', aerosno(:,:,:), aeroice(:,:,:), & 
            !                  faero_atm(i,1:n_aero), faero_ocn(i,1:n_aero)
-            aerosno(:,:,:) = 0.
-            aeroice(:,:,:) = 0.
-            faero_atm(i,1:n_aero) = 0.
-            faero_ocn(i,1:n_aero) = 0.
+           ! aerosno(:,:,:) = 0.
+           ! aeroice(:,:,:) = 0.
+           ! faero_atm(i,1:n_aero) = 0.
+           ! faero_ocn(i,1:n_aero) = 0.
             
             call icepack_step_therm1(dt=dt, ncat=ncat, nilyr=nilyr, nslyr=nslyr, &
                 aicen_init = aicen_init(i,:), &
