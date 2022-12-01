@@ -105,10 +105,10 @@
           if (tr_FY)   trcr_depend(nt_FY)    = 0   ! area-weighted first-year ice area
           if (tr_lvl)  trcr_depend(nt_alvl)  = 0   ! level ice area
           if (tr_lvl)  trcr_depend(nt_vlvl)  = 1   ! level ice volume
-          if (tr_pond_cesm) then
-                       trcr_depend(nt_apnd)  = 0           ! melt pond area
-                       trcr_depend(nt_hpnd)  = 2+nt_apnd   ! melt pond depth
-          endif
+          !if (tr_pond_cesm) then
+          !             trcr_depend(nt_apnd)  = 0           ! melt pond area
+          !             trcr_depend(nt_hpnd)  = 2+nt_apnd   ! melt pond depth
+          !endif
           if (tr_pond_lvl) then
                        trcr_depend(nt_apnd)  = 2+nt_alvl   ! melt pond area
                        trcr_depend(nt_hpnd)  = 2+nt_apnd   ! melt pond depth
@@ -154,10 +154,10 @@
              nt_strata   (it,2) = 0
           enddo
     
-          if (tr_pond_cesm) then
-             n_trcr_strata(nt_hpnd)   = 1       ! melt pond depth
-             nt_strata    (nt_hpnd,1) = nt_apnd ! on melt pond area
-          endif
+          !if (tr_pond_cesm) then
+          !   n_trcr_strata(nt_hpnd)   = 1       ! melt pond depth
+          !   nt_strata    (nt_hpnd,1) = nt_apnd ! on melt pond area
+          !endif
           if (tr_pond_lvl) then
              n_trcr_strata(nt_apnd)   = 1       ! melt pond area
              nt_strata    (nt_apnd,1) = nt_alvl ! on level ice area

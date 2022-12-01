@@ -400,7 +400,8 @@
         
           real (kind=dbl_kind), allocatable, save :: & ! DIM nx,ncat
              hin_old(:,:)     , & ! old ice thickness
-             dsnown(:,:)          ! change in snow thickness in category n (m)
+             dsnown(:,:)      , & ! change in snow thickness in category n (m)
+             meltsliqn(:,:)       ! snow melt
         
           real (kind=dbl_kind), allocatable, save :: & ! DIM nx
              nit(:)        , & ! ocean nitrate (mmol/m^3)

@@ -383,10 +383,10 @@
             call def_variable_2d(ip_id, 'vlvl',  (/nod2D, ncat/), 'ridged sea ice volume', 'm',    trcrn(:,nt_vlvl,:));
         end if
       
-        if (tr_pond_cesm) then
-            call def_variable_2d(ip_id, 'apnd',  (/nod2D, ncat/), 'melt pond area fraction', 'none', trcrn(:,nt_apnd,:));
-            call def_variable_2d(ip_id, 'hpnd',  (/nod2D, ncat/), 'melt pond depth',         'm',    trcrn(:,nt_hpnd,:));
-        end if
+        !if (tr_pond_cesm) then
+        !    call def_variable_2d(ip_id, 'apnd',  (/nod2D, ncat/), 'melt pond area fraction', 'none', trcrn(:,nt_apnd,:));
+        !    call def_variable_2d(ip_id, 'hpnd',  (/nod2D, ncat/), 'melt pond depth',         'm',    trcrn(:,nt_hpnd,:));
+        !end if
       
         if (tr_pond_topo) then
             call def_variable_2d(ip_id, 'apnd',  (/nod2D, ncat/), 'melt pond area fraction',  'none', trcrn(:,nt_apnd,:));

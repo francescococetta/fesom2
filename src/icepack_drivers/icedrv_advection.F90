@@ -1121,6 +1121,7 @@ submodule (icedrv_main) icedrv_advection
         small = puny        
         Tmin  = -100.0_dbl_kind
   
+        print*, heat_capacity
         if (.not. heat_capacity) then ! for 0 layer thermodynamics
            do n = 1, ncat
               do i = 1, nx

@@ -279,6 +279,7 @@
          fzsal_g_ai(nx)        , & ! gravity drainage salt flux to ocean (kg/m^2/s)
          hin_old(nx,ncat)      , & ! old ice thickness
          dsnown(nx,ncat)       , & ! change in snow thickness in category n (m)
+         meltsliqn(nx,ncat)    , & ! snow melt
          nit(nx)        , & ! ocean nitrate (mmol/m^3)
          amm(nx)        , & ! ammonia/um (mmol/m^3)
          sil(nx)        , & ! silicate (mmol/m^3)

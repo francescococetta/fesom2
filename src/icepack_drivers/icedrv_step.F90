@@ -296,7 +296,8 @@ submodule (icedrv_main) icedrv_step
                 melts    = melts(i),      meltsn    = meltsn(i,:),    &
                 congel   = congel(i),     congeln   = congeln(i,:),   &
                 snoice   = snoice(i),     snoicen   = snoicen(i,:),   &
-                dsnown   = dsnown(i,:),                               &
+                dsnow    = dsnow(i),      dsnown   = dsnown(i,:),     &
+                meltsliqn= meltsliqn(i,:),                            &
                 lmask_n  = lmask_n(i),    lmask_s   = lmask_s(i),     &
                 mlt_onset=mlt_onset(i),   frz_onset = frz_onset(i),   &
                 yday = yday,  prescribed_ice = prescribed_ice)
@@ -1292,19 +1293,19 @@ submodule (icedrv_main) icedrv_step
 
              t2 = MPI_Wtime()
 
-             ! FC deleted
-             !select case (whichEVP)
-             !   case (0)
-             !      call EVPdynamics(mesh)
-             !   case (1)
-             !      call EVPdynamics_m(mesh)
-             !   case (2)
-             !      call EVPdynamics_a(mesh)
-             !   case default
-             !      if (mype==0) write(*,*) 'A non existing EVP scheme specified!'
-             !      call par_ex
-             !      stop
-             !end select
+             ! FC to remove ice advection
+             select case (whichEVP)
+                case (0)
+                   call EVPdynamics(mesh)
+                case (1)
+                   call EVPdynamics_m(mesh)
+                case (2)
+                   call EVPdynamics_a(mesh)
+                case default
+                   if (mype==0) write(*,*) 'A non existing EVP scheme specified!'
+                   call par_ex
+                   stop
+             end select
 
              t3 = MPI_Wtime()
              time_evp = t3 - t2
@@ -1321,8 +1322,8 @@ submodule (icedrv_main) icedrv_step
 
              t2 = MPI_Wtime()
 
-             ! FC deleted
-             !call tracer_advection_icepack(mesh)
+             ! FC to remove ice advection
+             call tracer_advection_icepack(mesh)
 
              t3 = MPI_Wtime()
              time_advec = t3 - t2
