@@ -1,4 +1,4 @@
-/build
+build
 *.o
 *.mod
 *.x
@@ -6,5 +6,5 @@
 *~
 *.swp
 src/icepack_drivers/Icepack
-/work_*
+#/work_*
 Makefile.in
