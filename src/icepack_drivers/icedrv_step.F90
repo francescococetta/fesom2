@@ -1186,7 +1186,7 @@ submodule (icedrv_main) icedrv_step
     
           logical (kind=log_kind) :: &
              calc_Tsfc, skl_bgc, solve_zsal, z_tracers, tr_brine, &  ! from icepack
-             tr_fsd, wave_spec
+             tr_fsd, wave_spec, ice_dyn
          
           real (kind=dbl_kind) :: &
              offset,              &   ! d(age)/dt time offset
@@ -1220,6 +1220,7 @@ submodule (icedrv_main) icedrv_step
           call icepack_warnings_flush(ice_stderr)
           if (icepack_warnings_aborted()) call icedrv_system_abort(string=subname, &
               file=__FILE__,line= __LINE__)
+          call icepack_query_parameters(ice_dyn_out=ice_dyn)
     
           ! TODO: Add appropriate timing
 
@@ -1293,19 +1294,20 @@ submodule (icedrv_main) icedrv_step
 
              t2 = MPI_Wtime()
 
-             ! FC to remove ice advection
-             select case (whichEVP)
-                case (0)
-                   call EVPdynamics(mesh)
-                case (1)
-                   call EVPdynamics_m(mesh)
-                case (2)
-                   call EVPdynamics_a(mesh)
-                case default
-                   if (mype==0) write(*,*) 'A non existing EVP scheme specified!'
-                   call par_ex
-                   stop
-             end select
+             if (ice_dyn) then        ! FC if condition not meet --> run without ice dynamics
+                 select case (whichEVP)
+                    case (0)
+                         call EVPdynamics(mesh)
+                    case (1)
+                        call EVPdynamics_m(mesh)
+                    case (2)
+                        call EVPdynamics_a(mesh)
+                    case default
+                        if (mype==0) write(*,*) 'A non existing EVP scheme specified!'
+                        call par_ex
+                        stop
+                 end select
+             end if
 
              t3 = MPI_Wtime()
              time_evp = t3 - t2
@@ -1322,8 +1324,9 @@ submodule (icedrv_main) icedrv_step
 
              t2 = MPI_Wtime()
 
-             ! FC to remove ice advection
-             call tracer_advection_icepack(mesh)
+             if (ice_dyn) then        ! FC if condition not meet --> run without ice dynamics
+                call tracer_advection_icepack(mesh)
+             end if
 
              t3 = MPI_Wtime()
              time_advec = t3 - t2

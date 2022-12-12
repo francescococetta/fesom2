@@ -205,6 +205,10 @@
                     units='J/m3'
                     call def_stream3D((/ncat, nod2D/),  (/ncat, nx_nh/), trim(trname), trim(longname), trim(units), trcrn(:,nt_qsno+k-1,:), io_list_icepack(i)%freq, io_list_icepack(i)%unit, io_list_icepack(i)%precision, mesh, .true.)
                  end do
+             case ('albice    ')
+                 call def_stream2D(nod2D,  nx_nh,  'albice', 'bare ice albedo',     'none', albice(:), io_list_icepack(i)%freq,io_list_icepack(i)%unit, io_list_icepack(i)%precision, mesh)
+             case ('albsno    ')
+                 call def_stream2D(nod2D,  nx_nh,  'albsno', 'snow albedo',     'none', albsno(:), io_list_icepack(i)%freq,io_list_icepack(i)%unit, io_list_icepack(i)%precision, mesh)
              ! Average over categories
              case ('iage      ')
                 if (tr_iage) then

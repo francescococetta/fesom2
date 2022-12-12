@@ -1121,8 +1121,8 @@ submodule (icedrv_main) icedrv_advection
         small = puny        
         Tmin  = -100.0_dbl_kind
   
-        print*, heat_capacity
-        if (.not. heat_capacity) then ! for 0 layer thermodynamics
+        !if (.not. heat_capacity) then ! for 0 layer thermodynamics
+        if (ktherm == 0) then ! for 0 layer thermodynamics        FC
            do n = 1, ncat
               do i = 1, nx
                  if (trcrn(i,nt_Tsfc,n) > Tf(i) .or. trcrn(i,nt_Tsfc,n)< Tmin) then
@@ -1132,7 +1132,8 @@ submodule (icedrv_main) icedrv_advection
            enddo
         endif
   
-        if (heat_capacity) then    ! only for bl99 and mushy thermodynamics
+        !if (heat_capacity) then    ! only for bl99 and mushy thermodynamics
+        if ((ktherm == 1).or.(ktherm == 2)) then    ! only for bl99 and mushy thermodynamics     FC
   
         ! Here we should implement some conditions to check the tracers
         ! when ice is present, particularly enthalpy, surface temperature
@@ -1268,15 +1269,15 @@ submodule (icedrv_main) icedrv_advection
                      if (trcrn(i,nt_vlvl,n) > vicen(i,n)) trcrn(i,nt_vlvl,n) = vicen(i,n)
                  end if
                  ! CESM melt pond parameterization
-                 if (tr_pond_cesm) then
-                     if (trcrn(i,nt_apnd,n) > c1) then
-                         trcrn(i,nt_apnd,n) = c1
-                     elseif (trcrn(i,nt_apnd,n) < 0.000001_dbl_kind) then
-                         trcrn(i,nt_apnd,n) = c0
-                     endif
-                     if (trcrn(i,nt_hpnd,n) < 0.000001_dbl_kind .or. trcrn(i,nt_apnd,n) < 0.000001_dbl_kind) trcrn(i,nt_hpnd,n) = c0
-                     if (trcrn(i,nt_hpnd,n) > hpnd_max) trcrn(i,nt_hpnd,n) = hpnd_max
-                 end if
+                 !if (tr_pond_cesm) then
+                 !    if (trcrn(i,nt_apnd,n) > c1) then
+                 !        trcrn(i,nt_apnd,n) = c1
+                 !    elseif (trcrn(i,nt_apnd,n) < 0.000001_dbl_kind) then
+                 !        trcrn(i,nt_apnd,n) = c0
+                 !    endif
+                 !    if (trcrn(i,nt_hpnd,n) < 0.000001_dbl_kind .or. trcrn(i,nt_apnd,n) < 0.000001_dbl_kind) trcrn(i,nt_hpnd,n) = c0
+                 !    if (trcrn(i,nt_hpnd,n) > hpnd_max) trcrn(i,nt_hpnd,n) = hpnd_max
+                 !end if
                  ! Topo and level melt pond parameterization
                  if (tr_pond_topo .or. tr_pond_lvl) then
                      if (trcrn(i,nt_apnd,n) > c1) then
