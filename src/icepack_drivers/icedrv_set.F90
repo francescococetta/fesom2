@@ -449,6 +449,7 @@
              read(nu_nml, nml=dynamics_nml,iostat=nml_error)
              if (nml_error /= 0) exit
           end do
+          
 
           if (nml_error == 0) close(nu_nml)
           if (nml_error /= 0) then

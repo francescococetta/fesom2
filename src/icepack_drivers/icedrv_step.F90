@@ -1186,7 +1186,7 @@ submodule (icedrv_main) icedrv_step
     
           logical (kind=log_kind) :: &
              calc_Tsfc, skl_bgc, solve_zsal, z_tracers, tr_brine, &  ! from icepack
-             tr_fsd, wave_spec, ice_dyn
+             tr_fsd, wave_spec
          
           real (kind=dbl_kind) :: &
              offset,              &   ! d(age)/dt time offset
@@ -1220,7 +1220,6 @@ submodule (icedrv_main) icedrv_step
           call icepack_warnings_flush(ice_stderr)
           if (icepack_warnings_aborted()) call icedrv_system_abort(string=subname, &
               file=__FILE__,line= __LINE__)
-          call icepack_query_parameters(ice_dyn_out=ice_dyn)
     
           ! TODO: Add appropriate timing
 
