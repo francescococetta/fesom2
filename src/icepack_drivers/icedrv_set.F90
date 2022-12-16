@@ -176,7 +176,7 @@
           character (len=char_len) :: wave_spec_type
           
           ! test nml
-          logical (kind=log_kind)  :: ice_dyn
+          !logical (kind=log_kind)  :: ice_dyn
 
           !-----------------------------------------------------------------
           ! Namelist definition
